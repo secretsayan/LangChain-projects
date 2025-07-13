@@ -46,10 +46,12 @@ workflow.add_node("model", call_model)
 memory = MemorySaver()
 app = workflow.compile(checkpointer=memory)
 
-
+# This enables us to support multiple conversation threads with a single application,
+# a common requirement when your application has multiple users.
 config = {"configurable": {"thread_id": "abc123"}}
 
 
+# Loop and chat with LLM.
 while True:
     query = input("Enter your message (or type 'exit' to quit): ")
 
